@@ -6,7 +6,7 @@ import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Component;
 
 @Component
-@RabbitListener(queues = "mq")
+@RabbitListener(queues = "mq") // 修饰类时，消息在根据根据 MessageConverter 转换后的参数类型在@RabbitHandler方法下处理
 @Slf4j
 public class RabbitReceiver {
 

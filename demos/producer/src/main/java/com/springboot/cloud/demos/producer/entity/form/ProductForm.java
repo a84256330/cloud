@@ -8,14 +8,14 @@ import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
 
-@ApiModel
+@ApiModel// swagger注解 标记解析类
 @Data
 public class ProductForm extends BaseForm<Product> {
 
     @NotBlank(message = "产品名称不能为空")
-    @ApiModelProperty(value = "产品名称")
+    @ApiModelProperty(value = "产品名称")// swagger注解 配合@ApiModel标记属性
     private String name;
 
-    @ApiModelProperty(value = "产品描述")
+    @ApiModelProperty(value = "产品描述")// swagger注解 配合@ApiModel标记属性
     private String description;
 }

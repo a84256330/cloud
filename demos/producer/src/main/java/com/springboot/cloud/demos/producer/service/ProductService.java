@@ -16,10 +16,10 @@ import java.util.List;
 
 @Service
 @Slf4j
-@RefreshScope
+@RefreshScope// 热配置声明
 public class ProductService extends ServiceImpl<ProductMapper, Product> implements IProductService {
 
-    @Value("${producer.product:123}")
+    @Value("${producer.product:123}")// 热配置
     private String value;
 
     @Override
@@ -28,19 +28,19 @@ public class ProductService extends ServiceImpl<ProductMapper, Product> implemen
     }
 
     @Override
-    @CacheEvict(value = "product", key = "#root.targetClass+'-'+#id")
+    @CacheEvict(value = "product", key = "#root.targetClass+'-'+#id")// 执行完后删除缓存
     public boolean delete(String id) {
         return this.removeById(id);
     }
 
     @Override
-    @CacheEvict(value = "product", key = "#root.targetClass+'-'+#product.id")
+    @CacheEvict(value = "product", key = "#root.targetClass+'-'+#product.id")// 执行完后删除缓存
     public boolean update(Product product) {
         return this.updateById(product);
     }
 
     @Override
-    @Cacheable(value = "product", key = "#root.targetClass+'-'+#id")
+    @Cacheable(value = "product", key = "#root.targetClass+'-'+#id")// 缓存有值直接取值，没有值执行方法，然后存入缓存
     public Product get(String id) {
         log.info("value:{}", value);
         return this.getById(id);

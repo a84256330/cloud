@@ -7,6 +7,9 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Slf4j
+/**
+ * 消息发送
+ */
 public class BusSender {
 
     @Autowired
@@ -14,6 +17,7 @@ public class BusSender {
 
     public void send(String routingKey, String message) {
         log.info("routingKey:{}=>message:{}", routingKey, message);
+        // 发送
         rabbitTemplate.convertAndSend(routingKey, message);
     }
 }

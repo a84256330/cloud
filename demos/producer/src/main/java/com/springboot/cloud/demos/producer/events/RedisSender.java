@@ -11,6 +11,9 @@ import org.springframework.data.redis.listener.RedisMessageListenerContainer;
 import org.springframework.data.redis.listener.adapter.MessageListenerAdapter;
 import org.springframework.stereotype.Component;
 
+/**
+ * redis 发布订阅
+ */
 @Component
 public class RedisSender {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -18,9 +21,16 @@ public class RedisSender {
     @Autowired
     private StringRedisTemplate stringRedisTemplate;
 
+    /**
+     * redis监听容器创建
+     * @param connectionFactory redis消息工厂
+     * @param listenerAdapter 消息处理适配器
+     * @return
+     */
     @Bean
     RedisMessageListenerContainer redisContainer(RedisConnectionFactory connectionFactory, MessageListenerAdapter listenerAdapter) {
         RedisMessageListenerContainer container = new RedisMessageListenerContainer();
+        // 关联频道和消息工厂
         container.setConnectionFactory(connectionFactory);
         container.addMessageListener(listenerAdapter, new ChannelTopic("chat"));
         logger.info("init container:{}", listenerAdapter);

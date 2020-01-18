@@ -9,6 +9,9 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+/**
+ * 定时任务发布公告
+ */
 @Component
 @EnableScheduling
 public class ScheduledTasks {

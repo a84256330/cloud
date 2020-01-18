@@ -13,6 +13,10 @@ public class BusReceiver {
         log.info("Received Message:<{}>", message);
     }
 
+    /**
+     * 消息监听适配器
+     * @return
+     */
     @Bean
     MessageListenerAdapter mqListenerAdapter() {
         log.info("new listener");
