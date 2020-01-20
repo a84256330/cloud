@@ -16,6 +16,12 @@ import java.util.concurrent.TimeUnit;
  *     需要修改成OKHTTP的客户端，需要在配置文件增加
  *     feign.httpclient.enabled=false
 	   feign.okhttp.enabled=true
+       OkHttp是一个高效的HTTP客户端，它有以下默认特性：
+		 支持HTTP/2，允许所有同一个主机地址的请求共享同一个socket连接
+		 连接池减少请求延时
+		 透明的GZIP压缩减少响应数据的大小
+		 缓存响应内容，避免一些完全重复的请求
+
  */
 public class FeignOkHttpConfig {
 
