@@ -20,6 +20,8 @@ import reactor.core.publisher.Mono;
 
 /**
  * 请求url权限校验
+ * 1.@Configuration 配合 @ComponentScan spring 扫描包
+ * 2.实现全局过滤器创建自定义过滤器
  */
 @Configuration
 @ComponentScan(basePackages = "com.springboot.cloud.auth.client")
@@ -42,23 +44,24 @@ public class AccessGatewayFilter implements GlobalFilter {
      * 1.首先网关检查token是否有效，无效直接返回401，不调用签权服务
      * 2.调用签权服务器看是否对该请求有权限，有权限进入下一个filter，没有权限返回401
      *
-     * @param exchange
-     * @param chain
+     * @param exchange 服务网络交换器，存放着重要的请求-响应属性、请求实例和响应实例
+     * @param chain 网关过滤链表
      * @return
      */
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
         ServerHttpRequest request = exchange.getRequest();
+        // 获取的到Headers里面的List数组
         String authentication = request.getHeaders().getFirst(HttpHeaders.AUTHORIZATION);
         String method = request.getMethodValue();
         String url = request.getPath().value();
         log.debug("url:{},method:{},headers:{}", url, method, request.getHeaders());
-        //不需要网关签权的url
+        // 不需要网关签权的url
         if (authService.ignoreAuthentication(url)) {
             return chain.filter(exchange);
         }
 
-        //调用签权服务看用户是否有权限，若有权限进入下一个filter
+        // 调用签权服务看用户是否有权限，若有权限进入下一个filter
         if (permissionService.permission(authentication, url, method)) {
             ServerHttpRequest.Builder builder = request.mutate();
             //TODO 转发的请求都加上服务间认证token

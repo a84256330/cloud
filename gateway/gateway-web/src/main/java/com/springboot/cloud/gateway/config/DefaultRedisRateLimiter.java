@@ -10,6 +10,9 @@ import reactor.core.publisher.Mono;
 
 import java.util.List;
 
+/**
+ * RedisRateLimiter 基于redis的分布式限流工具
+ */
 @Configuration
 public class DefaultRedisRateLimiter extends RedisRateLimiter {
 

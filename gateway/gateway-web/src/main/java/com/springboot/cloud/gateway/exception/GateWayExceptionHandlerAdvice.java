@@ -14,6 +14,9 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.server.ResponseStatusException;
 
+/**
+ * 网关异常处理
+ */
 @Slf4j
 @Component
 public class GateWayExceptionHandlerAdvice {

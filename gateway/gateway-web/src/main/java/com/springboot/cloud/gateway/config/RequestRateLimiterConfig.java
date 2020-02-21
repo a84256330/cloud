@@ -9,6 +9,8 @@ import reactor.core.publisher.Mono;
 /**
  * 自定义限流标志的key，多个维度可以从这里入手
  * exchange对象中获取服务ID、请求信息，用户信息等
+ * reactor 为响应式框架
+ * KeyResolver 限流的Key
  */
 @Component
 public class RequestRateLimiterConfig {
@@ -19,9 +21,9 @@ public class RequestRateLimiterConfig {
      * @return 限流key
      */
     @Bean
-    @Primary
+    @Primary// 优先注入
     public KeyResolver remoteAddressKeyResolver() {
-        return exchange -> Mono.just(exchange.getRequest().getRemoteAddress().getHostName());
+        return  exchange -> Mono.just(exchange.getRequest().getRemoteAddress().getHostName());
     }
 
     /**
