@@ -16,6 +16,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+/**
+ * 消息队列配置
+ */
 @Configuration
 @Slf4j
 public class BusConfig {
@@ -26,6 +29,10 @@ public class BusConfig {
     @Value("${spring.application.name}")
     private String appName;
 
+    /**
+     * 创建消息队列
+     * @return
+     */
     @Bean
     Queue queue() {
         String queueName = new Base64UrlNamingStrategy(appName + ".").generateName();
@@ -33,12 +40,23 @@ public class BusConfig {
         return new Queue(queueName, false);
     }
 
+    /**
+     * 创建消息队列交换机
+     * @return
+     */
     @Bean
     TopicExchange exchange() {
         log.info("exchange:{}", EXCHANGE_NAME);
+        // 创建主题模式交换机
         return new TopicExchange(EXCHANGE_NAME);
     }
 
+    /**
+     * 绑定队列与交换机
+     * @param queue
+     * @param exchange
+     * @return
+     */
     @Bean
     Binding binding(Queue queue, TopicExchange exchange) {
         log.info("binding {} to {} with {}", queue, exchange, ROUTING_KEY);

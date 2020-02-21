@@ -33,6 +33,14 @@ public class AuthServiceTest {
         MockitoAnnotations.initMocks(this);
     }
 
+    /**
+     * 反射对对象注入属性值
+     * @param instance
+     * @param fieldName
+     * @param value
+     * @throws NoSuchFieldException
+     * @throws IllegalAccessException
+     */
     private void setInstancePrivateField(Object instance, String fieldName, Object value) throws NoSuchFieldException, IllegalAccessException {
         Field signingKeyField = instance.getClass().getDeclaredField(fieldName);
         signingKeyField.setAccessible(true);

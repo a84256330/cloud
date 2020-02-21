@@ -9,9 +9,9 @@ import org.springframework.context.annotation.Configuration;
 
 import java.util.concurrent.TimeUnit;
 
-@AutoConfigureBefore(FeignAutoConfiguration.class)
+@AutoConfigureBefore(FeignAutoConfiguration.class)// FeignOkHttpConfig 在 FeignAutoConfiguration 之前加载
 @Configuration
-@ConditionalOnClass(Feign.class)
+@ConditionalOnClass(Feign.class)// Feign 实例化成功 FeignOkHttpConfig才会实例化（当给定的类名在类路径上存在，则实例化当前Bean）
 /****
  *     需要修改成OKHTTP的客户端，需要在配置文件增加
  *     feign.httpclient.enabled=false

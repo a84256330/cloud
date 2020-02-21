@@ -14,7 +14,7 @@ import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 
 @Slf4j
 @Configuration
-@EnableResourceServer
+@EnableResourceServer// 需要访问令牌才能进行请求
 public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 
     @Value("${spring.security.oauth2.jwt.signingKey}")

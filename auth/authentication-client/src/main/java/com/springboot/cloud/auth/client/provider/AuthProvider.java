@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Component
-@FeignClient(name = "authentication-server", fallback = AuthProvider.AuthProviderFallback.class)
+@FeignClient(name = "authentication-server", fallback = AuthProvider.AuthProviderFallback.class)// 用于降级，访问失败，访问AuthProviderFallback
 public interface AuthProvider {
     /**
      * 调用签权服务，判断用户是否有权限
