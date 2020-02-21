@@ -10,7 +10,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.Past;
 import java.util.Date;
-
+// callSuper = true 父类属性也重写EqualsAndHashCode，false则反之，只写子类属性的EqualsAndHashCode
 @EqualsAndHashCode(callSuper = true)
 @ApiModel
 @Data

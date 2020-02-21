@@ -24,6 +24,7 @@ import java.util.List;
 @Slf4j
 public class GatewayRouteForm extends BaseForm<GatewayRoute> {
 
+    // 每一个Predicate的使用，你可以理解为：当满足这种条件后才会被转发，如果是多个，那就是都满足的情况下被转发
     @NotEmpty(message = "网关断言不能为空")
     @ApiModelProperty(value = "网关断言")
     private List<PredicateDefinition> predicates = new ArrayList<>();
@@ -50,7 +51,9 @@ public class GatewayRouteForm extends BaseForm<GatewayRoute> {
         GatewayRoute gatewayRoute = new GatewayRoute();
         BeanUtils.copyProperties(this, gatewayRoute);
         try {
+            // 数据模型转换
             ObjectMapper objectMapper = new ObjectMapper();
+            // 把list转为json
             gatewayRoute.setFilters(objectMapper.writeValueAsString(this.getFilters()));
             gatewayRoute.setPredicates(objectMapper.writeValueAsString(this.getPredicates()));
         } catch (JsonProcessingException e) {
